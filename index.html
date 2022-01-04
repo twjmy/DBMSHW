@@ -31,7 +31,7 @@ function renew(index)
 	-->
 	document.getElementById("professorcheck").style.display = "none";
 	document.getElementById("infocheck").style.display = "none";
-	
+	document.getElementById("papercheck").style.display = "none";
 	
 	if(index==1)
 	{
@@ -40,6 +40,10 @@ function renew(index)
 	else if(index==3)
 	{
 		document.getElementById("infocheck").style.display = "block";
+	}
+	else if(index==4)
+	{
+		document.getElementById("papercheck").style.display = "block";
 	}
 	else
 	{
@@ -65,9 +69,10 @@ function renew(index)
 			<!--<select name="first" onChange="renew(this.selectedIndex);">-->
 			<select id="first" name="first" onChange="renew(this.selectedIndex);">
 				<option value='select' selected disabled>選擇資訊</option>
-				<option id="teach"  value='teach'>師資資訊</option>
+				<option id="teach"  value='teach' >師資資訊</option>
 				<option id="school" value='school'>學校資訊</option>
-				<option id="info"   value='info'>報考資訊</option>
+				<option id="info"   value='info'  >報考資訊</option>
+				<option id="paper"  value='paper' >論文資訊</option>
 			</select>
 			<select id="first" name="second">
 				<option id="ALL"   value='select' >不分學校</option>
@@ -89,7 +94,7 @@ function renew(index)
 					<th><p>系所名稱</p></th>
 				  </tr>
 				  <tr>
-					<th><input name="ProName" id="ProName" type="text" placeholder="(ex.王小明)"   size="14" value=""></th>
+					<th><input name="ProName" id="ProName" type="text" placeholder="(ex.陳煥)"   size="14" value=""></th>
 					<th><input name="AcadeEx" id="AcadeEx" type="text" placeholder="(ex.人工智慧)" size="14" value=""></th>
 					<th><input name="Depart"  id="Depart"  type="text" placeholder="(ex.資訊工程)" size="14" value=""></th>
 				  </tr>
@@ -103,8 +108,23 @@ function renew(index)
 					<th><p>系所名稱</p></th>
 				  </tr>
 				  <tr>
-					<th><input name="Year"    id="Year"   type="text" placeholder="(ex.109)" size="14" value=""></th>
+					<th><input name="Year"    id="Year"   type="text" placeholder="(ex.109)"      size="14" value=""></th>
 					<th><input name="Depart2" id="Depart2"type="text" placeholder="(ex.資訊工程)" size="14" value=""></th>
+				  </tr>
+				</table>
+			</div>
+			
+			<div id="papercheck" style="display: none;">
+				<table class="center">
+				  <tr>
+					<th><p>教授名稱</p></th>
+					<th><p>論文名稱</p></th>
+					<th><p>系所名稱</p></th>
+				  </tr>
+				  <tr>
+					<th><input name="ProName2" id="ProName2"   type="text" placeholder="(ex.范耀中)"   size="14" value=""></th>
+					<th><input name="Paper"    id="Paper"      type="text" placeholder="(ex.網路安全)" size="14" value=""></th>
+					<th><input name="Depart3"  id="Depart3"    type="text" placeholder="(ex.資訊管理)" size="14" value=""></th>
 				  </tr>
 				</table>
 			</div>
@@ -176,7 +196,38 @@ function renew(index)
 		{
 			year = "D like '%%'";
 		}
-		var tq = 'select * where ' + pro + ' and ' + ex + ' and ' + dep + ' and ' + dep2 + ' and ' + year;
+		console.log(document.getElementById("myForm").ProName2);
+		var pro2 = document.getElementById("myForm").ProName2.value;
+		if(pro2 != '')
+		{
+			pro2 = "A like '%" + pro2 + "%'";
+		}
+		else
+		{
+			pro2 = "A like '%%'";
+		}
+		console.log(document.getElementById("myForm").Paper);
+		var pap = document.getElementById("myForm").Paper.value;
+		if(pap != '')
+		{
+			pap = "E like '%" + pap + "%'";
+		}
+		else
+		{
+			pap = "E like '%%'";
+		}
+		console.log(document.getElementById("myForm").Depart3);
+		var dep3 = document.getElementById("myForm").Depart3.value;
+		if(dep3 != '')
+		{
+			dep3 = "C like '%" + dep3 + "%'";
+		}
+		else
+		{
+			dep3 = "C like '%%'";
+		}
+		
+		var tq = 'select * where ' + pro + ' and ' + ex + ' and ' + dep + ' and ' + dep2 + ' and ' + year + ' and ' + dep3 + ' and ' + pap + ' and ' + pro2;
 		var durl = 'https://docs.google.com/spreadsheets/d/14EmAtA2MFDr34XSFIAOMbpnLwtBDqIs6XixaNSFO9JM' ;//我們試算表的網址
 		var gid = {'論文':'829588965', //試算表下面可切換標籤頁的固有編號 
 				   '教授':'936058269',
@@ -194,6 +245,10 @@ function renew(index)
 		else if(stru == 'school')
 		{
 			document.open(`${durl}/gviz/tq?gid=${gid['地址']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+		}
+		else if(stru == 'paper')
+		{
+			document.open(`${durl}/gviz/tq?gid=${gid['論文']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
 		}
 		else if(stru == 'info')
 		{
