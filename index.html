@@ -75,15 +75,15 @@ function renew(index)
 				<option id="paper"  value='paper' >論文資訊</option>
 			</select>
 			<select id="second" name="second">
-				<option id="ALL"   value='select' >不分學校</option>
-				<option id="NTU"   value='NTU'    >國立臺灣大學</option>
-				<option id="NCTU"  value='NCTU'   >國立交通大學</option>
-				<option id="NTHU"  value='NTHU'   >國立清華大學</option>
-				<option id="NCKU"  value='NCKU'   >國立成功大學</option>
-				<option id="NCU"   value='NCU'    >國立中央大學</option>
-				<option id="NCHU"  value='NCHU'   >國立中興大學</option>
-				<option id="NSYSU" value='NSYSU'  >國立中山大學</option>
-				<option id="CCU"   value='CCU'    >國立中正大學</option>
+				<option id="ALL"   value='ALL'    >  不分學校  </option>
+				<option id="NTU"   value='臺灣大學'    >國立臺灣大學</option>
+				<option id="NCTU"  value='交通大學'   >國立交通大學</option>
+				<option id="NTHU"  value='清華大學'   >國立清華大學</option>
+				<option id="NCKU"  value='成功大學'   >國立成功大學</option>
+				<option id="NCU"   value='中央大學'    >國立中央大學</option>
+				<option id="NCHU"  value='中興大學'   >國立中興大學</option>
+				<option id="NSYSU" value='中山大學'  >國立中山大學</option>
+				<option id="CCU"   value='中正大學'    >國立中正大學</option>
 			</select>
 			
 			<div id="professorcheck" style="display: none;">
@@ -227,31 +227,64 @@ function renew(index)
 			dep3 = "C like '%%'";
 		}
 		
-		var tq = 'select * where ' + pro + ' and ' + ex + ' and ' + dep + ' and ' + dep2 + ' and ' + year + ' and ' + dep3 + ' and ' + pap + ' and ' + pro2;
 		var durl = 'https://docs.google.com/spreadsheets/d/14EmAtA2MFDr34XSFIAOMbpnLwtBDqIs6XixaNSFO9JM' ;//我們試算表的網址
 		var gid = {'論文':'829588965', //試算表下面可切換標籤頁的固有編號 
 				   '教授':'936058269',
 				   '地址':'58835050',
 				   '排名':'217704505',
 				   '學校':'1358831441'};
+				   
 		var e = document.getElementById("first");
 		var stru = e.value;
+		var e2 = document.getElementById("second");
+		var stru2 = e2.value;
 		
-		if(stru == 'teach')
+		if(stru2 != 'ALL')
 		{
-			document.open(`${durl}/gviz/tq?gid=${gid['教授']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+			if(stru == 'teach')
+			{
+				var temp1 = "A like '%" + stru2 + "%'";
+				var tq = 'select * where ' + pro + ' and ' + ex + ' and ' + dep + ' and ' + dep2 + ' and ' + year + ' and ' + dep3 + ' and ' + pap + ' and ' + pro2 + ' and ' + temp1;
+				document.open(`${durl}/gviz/tq?gid=${gid['教授']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+			}
+			else if(stru == 'school')
+			{
+				var temp2 = "C like '%" + stru2 + "%'";
+				var tq = 'select * where ' + pro + ' and ' + ex + ' and ' + dep + ' and ' + dep2 + ' and ' + year + ' and ' + dep3 + ' and ' + pap + ' and ' + pro2 + ' and ' + temp2;
+				document.open(`${durl}/gviz/tq?gid=${gid['地址']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+			}
+			else if(stru == 'paper')
+			{
+				var temp3 = "B like '%" + stru2 + "%'";
+				var tq = 'select * where ' + pro + ' and ' + ex + ' and ' + dep + ' and ' + dep2 + ' and ' + year + ' and ' + dep3 + ' and ' + pap + ' and ' + pro2 + ' and ' + temp3;
+				document.open(`${durl}/gviz/tq?gid=${gid['論文']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+			}
+			else if(stru == 'info')
+			{
+				var temp4 = "A like '%" + stru2 + "%'";
+				var tq = 'select * where ' + pro + ' and ' + ex + ' and ' + dep + ' and ' + dep2 + ' and ' + year + ' and ' + dep3 + ' and ' + pap + ' and ' + pro2 + ' and ' + temp4;
+				document.open(`${durl}/gviz/tq?gid=${gid['學校']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+			}
 		}
-		else if(stru == 'school')
+		else
 		{
-			document.open(`${durl}/gviz/tq?gid=${gid['地址']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
-		}
-		else if(stru == 'paper')
-		{
-			document.open(`${durl}/gviz/tq?gid=${gid['論文']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
-		}
-		else if(stru == 'info')
-		{
-			document.open(`${durl}/gviz/tq?gid=${gid['學校']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+			var tq = 'select * where ' + pro + ' and ' + ex + ' and ' + dep + ' and ' + dep2 + ' and ' + year + ' and ' + dep3 + ' and ' + pap + ' and ' + pro2;
+			if(stru == 'teach')
+			{
+				document.open(`${durl}/gviz/tq?gid=${gid['教授']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+			}
+			else if(stru == 'school')
+			{
+				document.open(`${durl}/gviz/tq?gid=${gid['地址']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+			}
+			else if(stru == 'paper')
+			{
+				document.open(`${durl}/gviz/tq?gid=${gid['論文']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+			}
+			else if(stru == 'info')
+			{
+				document.open(`${durl}/gviz/tq?gid=${gid['學校']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+			}
 		}
 		document.getElementById("myForm").ProName.value  = '';
 		document.getElementById("myForm").AcadeEx.value  = '';
