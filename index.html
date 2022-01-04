@@ -11,18 +11,24 @@
 <h2>臺灣研究所資料搜索系統</h2>
 
 <script>
+<!--
+/*
 department=new Array();
 department[0]=[];
 department[1]=["臺灣大學", "清華大學", "陽交大學", "成功大學", "中央大學", "中興大學", "中山大學", "中正大學"];
 department[2]=["臺灣大學", "清華大學", "陽交大學", "成功大學", "中央大學", "中興大學", "中山大學", "中正大學"];	
 department[3]=["臺灣大學", "清華大學", "陽交大學", "成功大學", "中央大學", "中興大學", "中山大學", "中正大學"];
-
+*/
+-->
 function renew(index)
 {
+	<!--
+	/*
 	for(var i=0;i<department[index].length;i++)
 		document.myForm.second.options[i]=new Option(department[index][i], department[index][i]);
 	document.myForm.second.length=department[index].length;
-	
+	*/
+	-->
 	document.getElementById("professorcheck").style.display = "none";
 	document.getElementById("infocheck").style.display = "none";
 	
@@ -56,15 +62,23 @@ function renew(index)
 <form name="myForm" id="myForm">
 	<tr>
 		<div class="center">
-			<select name="first" onChange="renew(this.selectedIndex);">
+			<!--<select name="first" onChange="renew(this.selectedIndex);">-->
+			<select id="first" name="first" onChange="renew(this.selectedIndex);">
 				<option value='select' selected disabled>選擇資訊</option>
-				<option value='teach'>師資資訊</option>
-				<option value='school'>學校資訊</option>
-				<option value='info'>報考資訊</option>
+				<option id="teach"  value='teach'>師資資訊</option>
+				<option id="school" value='school'>學校資訊</option>
+				<option id="info"   value='info'>報考資訊</option>
 			</select>
-			<select name="second">
-				<option value='select' selected disabled>選擇學校</option>
-				<option value="學校">
+			<select id="first" name="second">
+				<option id="ALL"   value='select' >選擇學校(可不選)</option>
+				<option id="NTU"   value='NTU'    >國立臺灣大學</option>
+				<option id="NCTU"  value='NCTU'   >國立交通大學</option>
+				<option id="NTHU"  value='NTHU'   >國立清華大學</option>
+				<option id="NCKU"  value='NCKU'   >國立成功大學</option>
+				<option id="NCU"   value='NCU'    >國立中央大學</option>
+				<option id="NCHU"  value='NCHU'   >國立中興大學</option>
+				<option id="NSYSU" value='NSYSU'  >國立中山大學</option>
+				<option id="CCU"   value='CCU'    >國立中正大學</option>
 			</select>
 			
 			<div id="professorcheck" style="display: none;">
@@ -112,8 +126,8 @@ function renew(index)
 <script language="javascript">
 	function search()
 	{
-		console.log(document.getElementById("myForm").ProName)
-		var pro = document.getElementById("myForm").ProName.value
+		console.log(document.getElementById("myForm").ProName);
+		var pro = document.getElementById("myForm").ProName.value;
 		if(pro != '')
 		{
 			pro = "C like '%" + pro + "%'";
@@ -122,8 +136,8 @@ function renew(index)
 		{
 			pro = "C like '%%'";
 		}
-		console.log(document.getElementById("myForm").AcadeEx)
-		var ex = document.getElementById("myForm").AcadeEx.value
+		console.log(document.getElementById("myForm").AcadeEx);
+		var ex = document.getElementById("myForm").AcadeEx.value;
 		if(ex != '')
 		{
 			ex = "D like '%" + ex + "%'";
@@ -132,8 +146,8 @@ function renew(index)
 		{
 			ex = "D like '%%'";
 		}
-		console.log(document.getElementById("myForm").Depart)
-		var dep = document.getElementById("myForm").Depart.value
+		console.log(document.getElementById("myForm").Depart);
+		var dep = document.getElementById("myForm").Depart.value;
 		if(dep != '')
 		{
 			dep = "B like '%" + dep + "%'";
@@ -142,8 +156,8 @@ function renew(index)
 		{
 			dep = "B like '%%'";
 		}
-		console.log(document.getElementById("myForm").Depart2)
-		var dep2 = document.getElementById("myForm").Depart2.value
+		console.log(document.getElementById("myForm").Depart2);
+		var dep2 = document.getElementById("myForm").Depart2.value;
 		if(dep2 != '')
 		{
 			dep2 = "B like '%" + dep + "%'";
@@ -152,8 +166,8 @@ function renew(index)
 		{
 			dep2 = "B like '%%'";
 		}
-		console.log(document.getElementById("myForm").Year)
-		var year = document.getElementById("myForm").Year.value
+		console.log(document.getElementById("myForm").Year);
+		var year = document.getElementById("myForm").Year.value;
 		if(year != '')
 		{
 			year = "D like '%" + year + "%'";
@@ -163,7 +177,28 @@ function renew(index)
 			year = "D like '%%'";
 		}
 		var tq = 'select * where ' + pro + ' and ' + ex + ' and ' + dep + ' and ' + dep2 + ' and ' + year;
-		document.open('https://tyl1618.github.io/tyl/frame','', 'noopener=true')
+		var durl = 'https://docs.google.com/spreadsheets/d/14EmAtA2MFDr34XSFIAOMbpnLwtBDqIs6XixaNSFO9JM' ;//我們試算表的網址
+		var gid = {'論文':'829588965', //試算表下面可切換標籤頁的固有編號 
+				   '教授':'936058269',
+				   '地址':'58835050',
+				   '排名':'217704505',
+				   '學校':'1358831441'};
+		var e = document.getElementById("first");
+		var stru = e.value;
+		
+		<!--document.open(`${durl}/gviz/tq?gid=${gid['教授']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')-->
+		if(stru == 'teach')
+		{
+			document.open(`${durl}/gviz/tq?gid=${gid['教授']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+		}
+		else if(stru == 'school')
+		{
+			document.open(`${durl}/gviz/tq?gid=${gid['地址']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+		}
+		else if(stru == 'info')
+		{
+			document.open(`${durl}/gviz/tq?gid=${gid['學校']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+		}
 	}
 </script>
 
