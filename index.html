@@ -160,7 +160,7 @@ function renew(index)
 		var dep2 = document.getElementById("myForm").Depart2.value;
 		if(dep2 != '')
 		{
-			dep2 = "B like '%" + dep + "%'";
+			dep2 = "B like '%" + dep2 + "%'";
 		}
 		else
 		{
@@ -190,14 +190,32 @@ function renew(index)
 		if(stru == 'teach')
 		{
 			document.open(`${durl}/gviz/tq?gid=${gid['教授']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+			pro  = '';
+			ex   = '';
+			dep  = '';
+			dep2 = '';
+			year = '';
+			tq   = '';
 		}
 		else if(stru == 'school')
 		{
 			document.open(`${durl}/gviz/tq?gid=${gid['地址']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+			pro  = '';
+			ex   = '';
+			dep  = '';
+			dep2 = '';
+			year = '';
+			tq   = '';
 		}
 		else if(stru == 'info')
 		{
 			document.open(`${durl}/gviz/tq?gid=${gid['學校']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
+			pro  = '';
+			ex   = '';
+			dep  = '';
+			dep2 = '';
+			year = '';
+			tq   = '';
 		}
 	}
 </script>
