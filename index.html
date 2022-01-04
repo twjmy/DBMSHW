@@ -74,7 +74,7 @@ function renew(index)
 				<option id="info"   value='info'  >報考資訊</option>
 				<option id="paper"  value='paper' >論文資訊</option>
 			</select>
-			<select id="first" name="second">
+			<select id="second" name="second">
 				<option id="ALL"   value='select' >不分學校</option>
 				<option id="NTU"   value='NTU'    >國立臺灣大學</option>
 				<option id="NCTU"  value='NCTU'   >國立交通大學</option>
@@ -237,7 +237,6 @@ function renew(index)
 		var e = document.getElementById("first");
 		var stru = e.value;
 		
-		<!--document.open(`${durl}/gviz/tq?gid=${gid['教授']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')-->
 		if(stru == 'teach')
 		{
 			document.open(`${durl}/gviz/tq?gid=${gid['教授']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
@@ -254,11 +253,14 @@ function renew(index)
 		{
 			document.open(`${durl}/gviz/tq?gid=${gid['學校']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
 		}
-		document.getElementById("myForm").ProName.value = '';
-		document.getElementById("myForm").AcadeEx.value = '';
-		document.getElementById("myForm").Depart.value  = '';
-		document.getElementById("myForm").Depart2.value = '';
-		document.getElementById("myForm").Year.value    = '';
+		document.getElementById("myForm").ProName.value  = '';
+		document.getElementById("myForm").AcadeEx.value  = '';
+		document.getElementById("myForm").Depart.value   = '';
+		document.getElementById("myForm").Depart2.value  = '';
+		document.getElementById("myForm").Year.value     = '';
+		document.getElementById("myForm").Paper.value    = '';
+		document.getElementById("myForm").Depart3.value  = '';
+		document.getElementById("myForm").ProName2.value = '';
 	}
 </script>
 
