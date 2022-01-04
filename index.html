@@ -70,7 +70,7 @@ function renew(index)
 				<option id="info"   value='info'>報考資訊</option>
 			</select>
 			<select id="first" name="second">
-				<option id="ALL"   value='select' >選擇學校(可不選)</option>
+				<option id="ALL"   value='select' >不分學校</option>
 				<option id="NTU"   value='NTU'    >國立臺灣大學</option>
 				<option id="NCTU"  value='NCTU'   >國立交通大學</option>
 				<option id="NTHU"  value='NTHU'   >國立清華大學</option>
@@ -190,33 +190,20 @@ function renew(index)
 		if(stru == 'teach')
 		{
 			document.open(`${durl}/gviz/tq?gid=${gid['教授']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
-			pro  = '';
-			ex   = '';
-			dep  = '';
-			dep2 = '';
-			year = '';
-			tq   = '';
 		}
 		else if(stru == 'school')
 		{
 			document.open(`${durl}/gviz/tq?gid=${gid['地址']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
-			pro  = '';
-			ex   = '';
-			dep  = '';
-			dep2 = '';
-			year = '';
-			tq   = '';
 		}
 		else if(stru == 'info')
 		{
 			document.open(`${durl}/gviz/tq?gid=${gid['學校']}&tqx=out:html&tq=${encodeURIComponent(tq)}`,'', 'noopener=true')
-			pro  = '';
-			ex   = '';
-			dep  = '';
-			dep2 = '';
-			year = '';
-			tq   = '';
 		}
+		document.getElementById("myForm").ProName.value = '';
+		document.getElementById("myForm").AcadeEx.value = '';
+		document.getElementById("myForm").Depart.value  = '';
+		document.getElementById("myForm").Depart2.value = '';
+		document.getElementById("myForm").Year.value    = '';
 	}
 </script>
 
