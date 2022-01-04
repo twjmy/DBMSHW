@@ -4,11 +4,181 @@
 		<title>研究所資料搜尋系統</title>
 		<link rel="stylesheet" href="CSS.css">
 	</head>
-<frameset rows="70%,30%">
-	<frame src="https://tyl1618.github.io/tyl/initindex.html"/>
-	<frame src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSKQvcYDUV2mF3gQHcgxa7T7HDmhHjV_4lJBYRkTO5MQjwexcByduvwCtSDlhJT06iID_Iziz7x3PpT/pubhtml?widget=true&amp;headers=false"/>
-</frameset>
 
 <body>
+<link rel="stylesheet" href="CSS.css">
+<h1>NCHU CSE DataBase Final Project</h1>
+<h2>臺灣研究所資料搜索系統</h2>
+
+<script>
+department=new Array();
+department[0]=[];
+department[1]=["臺灣大學", "清華大學", "陽交大學", "成功大學", "中央大學", "中興大學", "中山大學", "中正大學"];
+department[2]=["臺灣大學", "清華大學", "陽交大學", "成功大學", "中央大學", "中興大學", "中山大學", "中正大學"];	
+department[3]=["臺灣大學", "清華大學", "陽交大學", "成功大學", "中央大學", "中興大學", "中山大學", "中正大學"];
+
+function renew(index)
+{
+	for(var i=0;i<department[index].length;i++)
+		document.myForm.second.options[i]=new Option(department[index][i], department[index][i]);
+	document.myForm.second.length=department[index].length;
+	
+	document.getElementById("professorcheck").style.display = "none";
+	document.getElementById("infocheck").style.display = "none";
+	
+	
+	if(index==1)
+	{
+		document.getElementById("professorcheck").style.display = "block";
+	}
+	else if(index==3)
+	{
+		document.getElementById("infocheck").style.display = "block";
+	}
+	else
+	{
+		document.getElementById("professorcheck").style.display = "none";
+	}
+}
+</script>
+
+
+<div id="DIV1">
+	<h3><font color="yellow">小遊戲</font></h3>
+	<button type="button"  onclick="window.open('https://tyl1618.github.io/tyl/game/bricks.html', '_blank')">復古打磚塊</button>
+	<br><br><br><br>
+	<button type="button"  onclick="window.open('https://tyl1618.github.io/tyl/game/tetris.html', '_blank')">俄羅斯方塊</button>
+	<br><br><br><br>
+	<button type="button"  onclick="window.open('https://tyl1618.github.io/tyl/game/bomb.html', '_blank')">老王爆爆王</button>
+	<br><br><br><br>
+</div>
+
+<form name="myForm" id="myForm">
+	<tr>
+		<div class="center">
+			<select name="first" onChange="renew(this.selectedIndex);">
+				<option value='select' selected disabled>選擇資訊</option>
+				<option value='teach'>師資資訊</option>
+				<option value='school'>學校資訊</option>
+				<option value='info'>報考資訊</option>
+			</select>
+			<select name="second">
+				<option value='select' selected disabled>選擇學校</option>
+				<option value="學校">
+			</select>
+			
+			<div id="professorcheck" style="display: none;">
+				<table class="center">
+				  <tr>
+					<th><p>教授名稱</p></th>
+					<th><p>學術專長</p></th>
+					<th><p>系所名稱</p></th>
+				  </tr>
+				  <tr>
+					<th><input name="ProName" id="ProName" type="text" placeholder="(ex.王小明)"   size="14" value=""></th>
+					<th><input name="AcadeEx" id="AcadeEx" type="text" placeholder="(ex.人工智慧)" size="14" value=""></th>
+					<th><input name="Depart"  id="Depart"  type="text" placeholder="(ex.資訊工程)" size="14" value=""></th>
+				  </tr>
+				</table>
+			</div>
+
+			<div id="infocheck" style="display: none;">
+				<table class="center">
+				  <tr>
+					<th><p>學年度</p></th>
+					<th><p>系所名稱</p></th>
+				  </tr>
+				  <tr>
+					<th><input name="Year"    id="Year"   type="text" placeholder="(ex.109)" size="14" value=""></th>
+					<th><input name="Depart2" id="Depart2"type="text" placeholder="(ex.資訊工程)" size="14" value=""></th>
+				  </tr>
+				</table>
+			</div>
+		</div>
+	</tr>
+</form>
+
+
+<br>
+<br>
+
+<script>
+	function rick()
+	{
+		document.open('https://c.tenor.com/_4YgA77ExHEAAAAC/rick-roll.gif','', 'noopener=true')
+	}
+</script>
+
+<script language="javascript">
+	function search()
+	{
+		console.log(document.getElementById("myForm").ProName)
+		var pro = document.getElementById("myForm").ProName.value
+		if(pro != '')
+		{
+			pro = "C like '%" + pro + "%'";
+		}
+		else
+		{
+			pro = "C like '%%'";
+		}
+		console.log(document.getElementById("myForm").AcadeEx)
+		var ex = document.getElementById("myForm").AcadeEx.value
+		if(ex != '')
+		{
+			ex = "D like '%" + ex + "%'";
+		}
+		else
+		{
+			ex = "D like '%%'";
+		}
+		console.log(document.getElementById("myForm").Depart)
+		var dep = document.getElementById("myForm").Depart.value
+		if(dep != '')
+		{
+			dep = "B like '%" + dep + "%'";
+		}
+		else
+		{
+			dep = "B like '%%'";
+		}
+		console.log(document.getElementById("myForm").Depart2)
+		var dep2 = document.getElementById("myForm").Depart2.value
+		if(dep2 != '')
+		{
+			dep2 = "B like '%" + dep + "%'";
+		}
+		else
+		{
+			dep2 = "B like '%%'";
+		}
+		console.log(document.getElementById("myForm").Year)
+		var year = document.getElementById("myForm").Year.value
+		if(year != '')
+		{
+			year = "D like '%" + year + "%'";
+		}
+		else
+		{
+			year = "D like '%%'";
+		}
+		var tq = 'select * where ' + pro + ' and ' + ex + ' and ' + dep + ' and ' + dep2 + ' and ' + year;
+	}
+</script>
+
+<div class="center">
+	<input type="button" value="搜尋" onclick="search()">
+</div>
+
+
+
+
+<br>
+<br><br>
+<br><br><br>
+<br><br>
+<br>
+
+
 </body>
 </html>
